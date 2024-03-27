@@ -1,25 +1,15 @@
 
 import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from './Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>A base app that can be used to build new projects or use as testground for packages</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+            <Route path="/" element={<HomePage />} />
+            
+            {/* <Route path="/*" element={<Error />} /> */}
+          </Routes>
   );
 }
 
