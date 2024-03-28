@@ -1,41 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { Task } from "./Components/Task";
+import AddTask from "./Components/AddTask";
 
 export function HomePage() {
-  const [taskList, setTaskList] = useState(
-    JSON.parse(localStorage.getItem("taskList")) || []
-  );
-  const [tempCount, setTempCount] = useState(0);
+  const [taskList, setTaskList] = useState([]);
+  const [isAddTask, setIsAddTask] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("taskList", JSON.stringify(taskList));
+    const fetchData = async () => {
+      try {
+        if (taskList.length === 0) {
+          const tasksFromLocalStorage = Object.keys(localStorage).map((key) =>
+            JSON.parse(localStorage.getItem(key))
+          );
+
+          setTaskList(tasksFromLocalStorage);
+        }
+      } catch (error) {
+        console.error("Error: ", error.message);
+      }
+    };
+
+    fetchData();
   }, [taskList]);
 
-  const tempAddTask = () => {
-    const newItem = { Name: "Task" + tempCount, otherValue1: tempCount };
-    setTaskList((prevTaskList) => [...prevTaskList, newItem]);
-    setTempCount(tempCount + 1);
+ 
+
+  const openModal = (type) => {
+    switch (type) {
+      case "Add":
+        setIsAddTask(true);
+        break;
+      default:
+        break;
+    }
   };
 
-  const deleteTask = (taskNameToDelete) => {
-    setTaskList(prevTaskList =>
-      prevTaskList.filter(task => task.Name !== taskNameToDelete)
+  const closeModal = (type) => {
+    switch (type) {
+      case "Add":
+        setIsAddTask(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const addTaskToList = (newTask) => {
+    setTaskList((prevTaskList) => [...prevTaskList, newTask]);
+    localStorage.setItem(newTask.taskKey, JSON.stringify(newTask));
+  };
+
+  const deleteTask = (taskToDelete) => {
+    setTaskList((prevTaskList) =>
+      prevTaskList.filter((task) => task.taskKey !== taskToDelete)
     );
+    localStorage.removeItem(taskToDelete);
   };
 
   return (
     <div className="App">
+      {console.log(taskList)}
       <header className="App-header">
         <h1>Task Dashboard</h1>
       </header>
       <div className="App-body">
         Tasks go here:
-        <button onClick={tempAddTask}>Add Task</button>
+        <button onClick={() => openModal("Add")}>Add Task</button>
+        <AddTask isOpen={isAddTask} onClose={() => closeModal("Add")}  onAddTask={addTaskToList} taskList={taskList}/>
+        <button>Filter</button>
         {taskList.map((task, index) => (
           <Task
             key={index}
             taskName={task.Name}
-            value={task.otherValue1}
+            keyValue={task.taskKey}
             onDelete={deleteTask} // Pass deleteTask function as onDelete prop
           />
         ))}
