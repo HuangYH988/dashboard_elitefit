@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Task } from "./Components/Task";
 import AddTask from "./Components/AddTask";
-import Filter from "./Components/Filter/Filter";
+import Filter from "./Components/Filter"
 
 export function HomePage() {
   const [taskList, setTaskList] = useState([]);
@@ -13,6 +13,7 @@ export function HomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetches data from localStorage at initial render
         if (taskList.length === 0) {
           const tasksFromLocalStorage = Object.keys(localStorage).map((key) =>
             JSON.parse(localStorage.getItem(key))
@@ -27,6 +28,7 @@ export function HomePage() {
     const filterData = () => {
       let filtered = [...taskList];
 
+      // Filters taskList if any of the filter conditions are present
       if (filterCond.Name) {
         filtered = filtered.filter((task) =>
           task.Name.includes(filterCond.Name)
@@ -57,6 +59,7 @@ export function HomePage() {
     }
   }, [taskList, filterCond]);
 
+  //This function opens the corresponding Modal
   const openModal = (type) => {
     switch (type) {
       case "Add":
@@ -70,6 +73,7 @@ export function HomePage() {
     }
   };
 
+  // closes the corrsponding Modal
   const closeModal = (type) => {
     switch (type) {
       case "Add":
@@ -83,11 +87,13 @@ export function HomePage() {
     }
   };
 
+  // When a new task is added, update taskList accordingly
   const addTaskToList = (newTask) => {
     setTaskList((prevTaskList) => [...prevTaskList, newTask]);
     localStorage.setItem(newTask.taskKey, JSON.stringify(newTask));
   };
 
+  // Update localStorage when a task is editted
   const editTaskList = (edittedTask) => {
     localStorage.setItem(edittedTask.taskKey, JSON.stringify(edittedTask));
   };
@@ -98,10 +104,12 @@ export function HomePage() {
     );
     localStorage.removeItem(taskToDelete);
   };
+
+  // Updating filter condition
   const changeFilterCond = (cond) => {
-    console.log(cond)
     setFilterCond(cond);
   };
+
   return (
     <div className="App">
       <header className="App-header">
