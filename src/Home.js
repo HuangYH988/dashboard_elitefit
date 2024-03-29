@@ -89,7 +89,9 @@ export function HomePage() {
 
   // When a new task is added, update taskList accordingly
   const addTaskToList = (newTask) => {
-    setTaskList((prevTaskList) => [...prevTaskList, newTask]);
+    // with() method adds the new task to taskList
+    const newTaskList = taskList.with(taskList.length-1, newTask);
+    setTaskList(newTaskList);
     localStorage.setItem(newTask.taskKey, JSON.stringify(newTask));
   };
 
