@@ -34,6 +34,22 @@
   color: rgb(69, 2, 2);
 }
 
+.Display-tasks{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.Display-buttons{
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -47,10 +63,105 @@
   }
 }
 
-.Task{
+.Task-in-progress{
+  width: 300px;
+  height: 600px;
   display: inline;
-  border: solid 2px black;
+  border: solid 3px green;
   border-radius: 10px;
   padding: 5px;
   margin: 5px;
+  background-color: rgb(147, 208, 147);
+}
+
+
+.Task-unassigned {
+  border: solid 7px rgb(236, 188, 45);
+  border-radius: 10px;
+  width: 300px;
+  height: 600px;
+  display: inline;
+  padding: 5px;
+  margin: 5px;
+  background-color: rgb(147, 208, 147);
+}
+.Task-overdued{  
+  background-color: rgb(245, 72, 38);
+  width: 300px;
+  height: 600px;
+  display: inline;  
+  padding: 5px;
+  margin: 5px;
+ color: rgb(182, 247, 225);
+ border: solid 7px rgb(157, 43, 33);
+  border-radius: 10px;
+}
+
+.Task-Completed{  
+  background-color: rgb(18, 86, 21);
+  width: 300px;
+  height: 600px;
+  display: inline;  
+  padding: 5px;
+  margin: 5px;
+  color:rgb(239, 181, 239)
+}
+.Task-in-progress h5,
+.Task-in-progress p,
+.Task-Completed h5,
+.Task-Completed p,
+.Task-overdued h5,
+.Task-overdued p,
+.Task-unassigned h5,
+.Task-unassigned p {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.Modal{
+  background-color: rgb(250, 181, 250);
+}
+.Modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  
+}
+
+.Add-button {
+  margin: 5px;
+  background-color: aquamarine;
+  border: 1px solid blue;
+  color: rgb(25, 25, 148);
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;  
+  margin-top: 20px; /* Add margin to create space between the content and the button */
+}
+.Top-buttons{
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 200px;
+  height: 60px;
+  border: solid 2px green;
+  border-radius: 10px;
+  background-color: rgb(85, 226, 85);
+  font-size: 20px;
+  color:black
+}
+.Complete-button{
+  margin: 5px;
+  background-color: rgb(233, 3, 3);
+  border: 1px solid rgb(1, 1, 8);
+  color: rgb(139, 245, 101);
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;  
+  margin-top: 20px;
+}
+
+.Text-content{
+  font-size: 20px;
 }
